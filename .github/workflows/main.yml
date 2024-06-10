@@ -5,23 +5,25 @@ permissions: write-all
 
 
 jobs:
-  Telegram:
+  Build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Set up GCC
-      uses: egor-tensin/setup-gcc@v1
-      with:
-        version: latest
-        platform: x64
-    - name: Compile
-      run: gcc  dragon.c -o dragon
+    #- name: Set up GCC
+    #  uses: egor-tensin/setup-gcc@v1
+    #  with:
+    #    version: latest
+    #    platform: x64
+    - name: Install packages
+      run: sudo apt install build-essential libgtk-3-dev
+    - name: make
+      run: make
     - name: ls
       run: ls
     - name: Release
       uses: marvinpinto/action-automatic-releases@latest
       with:
-        title: getdents binary
+        title: dragon binary
         automatic_release_tag: all
         prerelease: false
         files: |
