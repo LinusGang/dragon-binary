@@ -1,0 +1,30 @@
+
+name: Release
+on: workflow_dispatch
+permissions: write-all
+
+
+jobs:
+  Telegram:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up GCC
+      uses: egor-tensin/setup-gcc@v1
+      with:
+        version: latest
+        platform: x64
+    - name: Compile
+      run: gcc  dragon.c -o dragon
+    - name: ls
+      run: ls
+    - name: Release
+      uses: marvinpinto/action-automatic-releases@latest
+      with:
+        title: getdents binary
+        automatic_release_tag: all
+        prerelease: false
+        files: |
+          dragon
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+
